@@ -22,24 +22,24 @@ public class PartidaDTO {
         this.fecha = LocalDateTime.now();
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int obtenerId() { return id; }
+    public void establecerId(int id) { this.id = id; }
 
-    public int getJugadorId() { return jugadorId; }
-    public void setJugadorId(int jugadorId) { this.jugadorId = jugadorId; }
+    public int obtenerJugadorId() { return jugadorId; }
+    public void establecerJugadorId(int jugadorId) { this.jugadorId = jugadorId; }
 
-    public String getPalabra() { return palabra; }
-    public void setPalabra(String palabra) { this.palabra = palabra; }
+    public String obtenerPalabra() { return palabra; }
+    public void establecerPalabra(String palabra) { this.palabra = palabra; }
 
-    public int getErrores() { return errores; }
-    public void setErrores(int errores) { this.errores = errores; }
+    public int obtenerErrores() { return errores; }
+    public void establecerErrores(int errores) { this.errores = errores; }
 
-    public String getResultado() { return resultado; }
-    public void setResultado(String resultado) { this.resultado = resultado; }
+    public String obtenerResultado() { return resultado; }
+    public void establecerResultado(String resultado) { this.resultado = resultado; }
 
-    public int getPuntaje() { return puntaje; }
-    public void setPuntaje(int puntaje) { this.puntaje = puntaje; }
+    public int obtenerPuntaje() { return puntaje; }
+    public void establecerPuntaje(int puntaje) { this.puntaje = puntaje; }
 
-    public LocalDateTime getFecha() { return fecha; }
-    public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
+    public LocalDateTime obtenerFecha() { return fecha; }
+    public void establecerFecha(LocalDateTime fecha) { this.fecha = fecha; }
 }
