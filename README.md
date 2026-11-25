@@ -85,4 +85,4 @@ Para explorar el análisis completo, especificaciones y modelado del sistema, co
 ## 👤 Autor
 
 * **Daniel Alejandro Romero Murcia** – [@Daniel-ui7](https://github.com/Daniel-ui7)
-* 
+* **Carol Daniela Muñoz Cubides** - [@danielacubides](https://github.com/danielacubides)
