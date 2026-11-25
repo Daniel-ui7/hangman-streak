@@ -64,8 +64,8 @@ public class JuegoLogica {
         return sb.toString().trim();
     }
 
-    public JugadorDTO getJugadorActual() { return jugadorActual; }
-    public PalabraDTO getPalabraSecreta() { return palabraSecreta; }
+    public JugadorDTO obtenerJugadorActual() { return jugadorActual; }
+    public PalabraDTO obtenerPalabraSecreta() { return palabraSecreta; }
     public int obtenerErrores() { return errores; }
     public int obtenerMAX_ERRORES() { return MAX_ERRORES; }
 }

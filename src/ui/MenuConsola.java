@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class MenuConsola extends JFrame {
 
-    // Paleta de colores exacta de tus diseños
+    // Paleta de colores
     private static final Color BG_OSCURO = new Color(19, 30, 58);      // #131E3A
     private static final Color CARD_AZUL = new Color(27, 41, 75);      // #1B294B
     private static final Color INPUT_BG = new Color(36, 52, 92);       // #24345C
@@ -60,9 +60,9 @@ public class MenuConsola extends JFrame {
 
         setTitle("AHORCADO - Hangman Streak");
         setSize(1920, 1080);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false);
 
         cardLayout = new CardLayout();
         contenedorPrincipal = new JPanel(cardLayout);
@@ -81,9 +81,9 @@ public class MenuConsola extends JFrame {
     // 1. PANTALLA MENÚ PRINCIPAL
     // =========================================================================
     private JPanel crearPantallaMenu() {
-        JPanel panel = new JPanel(new GridLayout(1, 2, 40, 0));
+        JPanel panel = new JPanel(new GridLayout(1, 2, 80, 0));
         panel.setBackground(BG_OSCURO);
-        panel.setBorder(new EmptyBorder(60, 80, 60, 80));
+        panel.setBorder(new EmptyBorder(120, 220, 120, 220));
 
         // Columna Izquierda: Logo de la horca + Título
         JPanel izq = new JPanel();
@@ -92,55 +92,61 @@ public class MenuConsola extends JFrame {
         izq.add(Box.createVerticalGlue());
 
         PanelHorca logoHorca = new PanelHorca();
-        logoHorca.setErrores(0);
-        logoHorca.setModoLogo(true);
-        logoHorca.setPreferredSize(new Dimension(200, 220));
-        logoHorca.setMaximumSize(new Dimension(200, 220));
+        logoHorca.establecerErrores(0);
+        logoHorca.establecerModoLogo(true);
+        logoHorca.setPreferredSize(new Dimension(320, 360));
+        logoHorca.setMaximumSize(new Dimension(320, 360));
         logoHorca.setAlignmentX(Component.CENTER_ALIGNMENT);
         izq.add(logoHorca);
 
         JLabel lblTitulo = new JLabel("AHORCADO");
-        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 38));
+        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 56));
         lblTitulo.setForeground(AMARILLO);
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        izq.add(Box.createRigidArea(new Dimension(0, 15)));
+        izq.add(Box.createRigidArea(new Dimension(0, 20)));
         izq.add(lblTitulo);
 
         JLabel lblSub = new JLabel("<html><center>Adivina la palabra antes de<br>completar el dibujo</center></html>");
-        lblSub.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        lblSub.setFont(new Font("SansSerif", Font.PLAIN, 18));
         lblSub.setForeground(TEXTO_GRIS);
         lblSub.setAlignmentX(Component.CENTER_ALIGNMENT);
-        izq.add(Box.createRigidArea(new Dimension(0, 8)));
+        izq.add(Box.createRigidArea(new Dimension(0, 12)));
         izq.add(lblSub);
         izq.add(Box.createVerticalGlue());
 
         // Columna Derecha: Tarjeta de formulario
+        JPanel wrapperDer = new JPanel(new GridBagLayout());
+        wrapperDer.setBackground(BG_OSCURO);
+
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBackground(CARD_AZUL);
-        card.setBorder(new EmptyBorder(30, 35, 30, 35));
+        card.setPreferredSize(new Dimension(520, 560));
+        card.setBorder(new EmptyBorder(45, 50, 45, 50));
 
         JLabel lblNombre = new JLabel("Nombre del jugador");
         lblNombre.setForeground(TEXTO_GRIS);
-        lblNombre.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        lblNombre.setFont(new Font("SansSerif", Font.PLAIN, 15));
         lblNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         txtNombreJugador = new JTextField();
-        txtNombreJugador.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
+        txtNombreJugador.setMaximumSize(new Dimension(Integer.MAX_VALUE, 46));
+        txtNombreJugador.setFont(new Font("SansSerif", Font.PLAIN, 16));
         txtNombreJugador.setBackground(INPUT_BG);
         txtNombreJugador.setForeground(Color.WHITE);
         txtNombreJugador.setCaretColor(Color.WHITE);
         txtNombreJugador.setBorder(BorderFactory.createCompoundBorder(
                 new LineBorder(new Color(60, 80, 120), 1),
-                new EmptyBorder(5, 10, 5, 10)));
+                new EmptyBorder(8, 14, 8, 14)));
 
         JLabel lblCat = new JLabel("Categoría");
         lblCat.setForeground(TEXTO_GRIS);
-        lblCat.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        lblCat.setFont(new Font("SansSerif", Font.PLAIN, 15));
         lblCat.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         cmbCategoria = new JComboBox<>(new String[]{"Todas", "Programación", "General", "Ciencia", "Raro"});
-        cmbCategoria.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
+        cmbCategoria.setMaximumSize(new Dimension(Integer.MAX_VALUE, 46));
+        cmbCategoria.setFont(new Font("SansSerif", Font.PLAIN, 16));
         cmbCategoria.setBackground(INPUT_BG);
         cmbCategoria.setForeground(Color.WHITE);
 
@@ -167,110 +173,139 @@ public class MenuConsola extends JFrame {
         btnSalir.addActionListener(e -> System.exit(0));
 
         card.add(lblNombre);
-        card.add(Box.createRigidArea(new Dimension(0, 6)));
+        card.add(Box.createRigidArea(new Dimension(0, 8)));
         card.add(txtNombreJugador);
-        card.add(Box.createRigidArea(new Dimension(0, 16)));
+        card.add(Box.createRigidArea(new Dimension(0, 22)));
         card.add(lblCat);
-        card.add(Box.createRigidArea(new Dimension(0, 6)));
+        card.add(Box.createRigidArea(new Dimension(0, 8)));
         card.add(cmbCategoria);
-        card.add(Box.createRigidArea(new Dimension(0, 25)));
+        card.add(Box.createRigidArea(new Dimension(0, 32)));
         card.add(btnJugar);
-        card.add(Box.createRigidArea(new Dimension(0, 12)));
+        card.add(Box.createRigidArea(new Dimension(0, 15)));
         card.add(btnRanking);
-        card.add(Box.createRigidArea(new Dimension(0, 12)));
+        card.add(Box.createRigidArea(new Dimension(0, 15)));
         card.add(btnHistorial);
-        card.add(Box.createRigidArea(new Dimension(0, 12)));
+        card.add(Box.createRigidArea(new Dimension(0, 15)));
         card.add(btnSalir);
 
+        wrapperDer.add(card);
+
         panel.add(izq);
-        panel.add(card);
+        panel.add(wrapperDer);
         return panel;
     }
 
     // =========================================================================
-    // 2. PANTALLA PARTIDA EN CURSO
+    // 2. PANTALLA PARTIDA EN CURSO (1920 x 1080)
     // =========================================================================
     private JPanel crearPantallaJuego() {
-        JPanel panel = new JPanel(new BorderLayout(25, 20));
+        JPanel panel = new JPanel(new BorderLayout(40, 30));
         panel.setBackground(BG_OSCURO);
-        panel.setBorder(new EmptyBorder(30, 45, 30, 45));
+        panel.setBorder(new EmptyBorder(45, 90, 45, 90));
 
         // Header superior: Jugador a la izquierda, Categoría a la derecha
         JPanel header = new JPanel(new BorderLayout());
         header.setBackground(BG_OSCURO);
 
         lblJugadorPartida = new JLabel("Jugador: ");
-        lblJugadorPartida.setFont(new Font("SansSerif", Font.BOLD, 16));
+        lblJugadorPartida.setFont(new Font("SansSerif", Font.BOLD, 22));
         lblJugadorPartida.setForeground(Color.WHITE);
 
         lblCategoriaPartida = new JLabel("Categoría: General");
-        lblCategoriaPartida.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        lblCategoriaPartida.setFont(new Font("SansSerif", Font.PLAIN, 18));
         lblCategoriaPartida.setForeground(TEXTO_GRIS);
         lblCategoriaPartida.setOpaque(true);
         lblCategoriaPartida.setBackground(CARD_AZUL);
-        lblCategoriaPartida.setBorder(new EmptyBorder(6, 14, 6, 14));
+        lblCategoriaPartida.setBorder(new EmptyBorder(10, 22, 10, 22));
 
         header.add(lblJugadorPartida, BorderLayout.WEST);
         header.add(lblCategoriaPartida, BorderLayout.EAST);
         panel.add(header, BorderLayout.NORTH);
 
-        // Panel Izquierdo: Tarjeta con dibujo de la horca + bolitas de errores
+        // Panel Izquierdo: Tarjeta de la horca
         JPanel panelIzq = new JPanel(new BorderLayout());
         panelIzq.setBackground(CARD_AZUL);
-        panelIzq.setPreferredSize(new Dimension(260, 0));
-        panelIzq.setBorder(new EmptyBorder(20, 20, 20, 20));
+        panelIzq.setPreferredSize(new Dimension(420, 0));
+        panelIzq.setBorder(new EmptyBorder(30, 30, 30, 30));
 
         panelHorca = new PanelHorca();
         panelIzq.add(panelHorca, BorderLayout.CENTER);
 
-        JPanel footerErrores = new JPanel(new FlowLayout(FlowLayout.CENTER, 6, 5));
+        JPanel footerErrores = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         footerErrores.setBackground(CARD_AZUL);
         lblErroresTexto = new JLabel("Errores 0/6");
         lblErroresTexto.setForeground(TEXTO_GRIS);
-        lblErroresTexto.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        lblErroresTexto.setFont(new Font("SansSerif", Font.BOLD, 16));
         footerErrores.add(lblErroresTexto);
 
-        panelIndicadoresErrores = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 0));
+        panelIndicadoresErrores = new JPanel(new FlowLayout(FlowLayout.CENTER, 6, 0));
         panelIndicadoresErrores.setBackground(CARD_AZUL);
         footerErrores.add(panelIndicadoresErrores);
 
         panelIzq.add(footerErrores, BorderLayout.SOUTH);
         panel.add(panelIzq, BorderLayout.WEST);
 
-        // Panel Derecho: Palabra oculta + Teclado A-Z + Botones inferiores
-        JPanel panelDer = new JPanel(new BorderLayout(0, 25));
+        // Panel Derecho: Palabra oculta + Instrucciones + Teclado + Botones
+        JPanel panelDer = new JPanel(new BorderLayout(0, 30));
         panelDer.setBackground(BG_OSCURO);
 
-        lblPalabraOculta = new JLabel("_ _ _ _ _", SwingConstants.CENTER);
-        lblPalabraOculta.setFont(new Font("Monospaced", Font.BOLD, 34));
-        lblPalabraOculta.setForeground(Color.WHITE);
-        lblPalabraOculta.setBorder(new EmptyBorder(20, 0, 10, 0));
-        panelDer.add(lblPalabraOculta, BorderLayout.NORTH);
+        JPanel panelSuperiorJuego = new JPanel();
+        panelSuperiorJuego.setLayout(new BoxLayout(panelSuperiorJuego, BoxLayout.Y_AXIS));
+        panelSuperiorJuego.setBackground(BG_OSCURO);
+        panelSuperiorJuego.setBorder(new EmptyBorder(10, 0, 10, 0));
 
-        // Teclado en cuadrícula 3 filas x 9 columnas (A-Z)
-        JPanel gridTeclado = new JPanel(new GridLayout(3, 9, 8, 8));
+        lblPalabraOculta = new JLabel("_ _ _ _ _", SwingConstants.CENTER);
+        lblPalabraOculta.setFont(new Font("Monospaced", Font.BOLD, 48));
+        lblPalabraOculta.setForeground(Color.WHITE);
+        lblPalabraOculta.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel lblInstrucciones = new JLabel(
+                "<html><center>Selecciona las letras de la palabra que crees que es; si te equivocas, el dibujo se empezará a completar.<br>¡Adivina la palabra antes de que se complete el dibujo!</center></html>",
+                SwingConstants.CENTER
+        );
+        lblInstrucciones.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        lblInstrucciones.setForeground(TEXTO_GRIS);
+        lblInstrucciones.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblInstrucciones.setBorder(new EmptyBorder(18, 40, 5, 40));
+
+        panelSuperiorJuego.add(lblPalabraOculta);
+        panelSuperiorJuego.add(lblInstrucciones);
+        panelDer.add(panelSuperiorJuego, BorderLayout.NORTH);
+
+        // Teclado centrado
+        JPanel wrapperTeclado = new JPanel(new GridBagLayout());
+        wrapperTeclado.setBackground(BG_OSCURO);
+
+        JPanel gridTeclado = new JPanel(new GridLayout(3, 9, 14, 14));
         gridTeclado.setBackground(BG_OSCURO);
+        gridTeclado.setPreferredSize(new Dimension(1150, 360));
+
         String alfabeto = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
         for (char c : alfabeto.toCharArray()) {
             JButton btnLetra = new JButton(String.valueOf(c));
-            btnLetra.setFont(new Font("SansSerif", Font.BOLD, 14));
+            btnLetra.setFont(new Font("SansSerif", Font.BOLD, 22));
             btnLetra.setFocusPainted(false);
             btnLetra.setBackground(CARD_AZUL);
             btnLetra.setForeground(Color.WHITE);
-            btnLetra.setBorder(new LineBorder(new Color(50, 70, 110), 1));
+            btnLetra.setBorder(new LineBorder(new Color(50, 70, 110), 2));
             btnLetra.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
             btnLetra.addActionListener(e -> procesarClickLetra(c, btnLetra));
             botonesTeclado.put(c, btnLetra);
             gridTeclado.add(btnLetra);
         }
-        panelDer.add(gridTeclado, BorderLayout.CENTER);
+        wrapperTeclado.add(gridTeclado);
+        panelDer.add(wrapperTeclado, BorderLayout.CENTER);
 
-        // Botones inferiores: Abandonar y Nueva palabra
-        JPanel panelAcciones = new JPanel(new GridLayout(1, 2, 20, 0));
+        // Botones inferiores
+        JPanel panelAcciones = new JPanel(new GridLayout(1, 2, 30, 0));
         panelAcciones.setBackground(BG_OSCURO);
+        panelAcciones.setPreferredSize(new Dimension(0, 52));
+
         JButton btnAbandonar = crearBotonBorde("Abandonar", ROJO);
+        btnAbandonar.setFont(new Font("SansSerif", Font.BOLD, 16));
         JButton btnNuevaPalabra = crearBotonBorde("Nueva palabra", CIAN_BORDE);
+        btnNuevaPalabra.setFont(new Font("SansSerif", Font.BOLD, 16));
 
         btnAbandonar.addActionListener(e -> cardLayout.show(contenedorPrincipal, "MENU"));
         btnNuevaPalabra.addActionListener(e -> iniciarNuevaPartida());
@@ -293,28 +328,28 @@ public class MenuConsola extends JFrame {
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBackground(CARD_AZUL);
-        card.setPreferredSize(new Dimension(460, 420));
+        card.setPreferredSize(new Dimension(600, 520));
         card.setBorder(BorderFactory.createCompoundBorder(
                 new LineBorder(CIAN_BORDE, 2),
-                new EmptyBorder(35, 50, 35, 50)));
+                new EmptyBorder(45, 65, 45, 65)));
 
         lblTituloFin = new JLabel("¡Ganaste!");
-        lblTituloFin.setFont(new Font("SansSerif", Font.BOLD, 34));
+        lblTituloFin.setFont(new Font("SansSerif", Font.BOLD, 44));
         lblTituloFin.setForeground(VERDE);
         lblTituloFin.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         lblPalabraFin = new JLabel("P R O G R A M A");
-        lblPalabraFin.setFont(new Font("Monospaced", Font.BOLD, 24));
+        lblPalabraFin.setFont(new Font("Monospaced", Font.BOLD, 30));
         lblPalabraFin.setForeground(Color.WHITE);
         lblPalabraFin.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        lblDetallesFin = new JLabel("Errores: 2 de 6    Posición: #2");
-        lblDetallesFin.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        lblDetallesFin = new JLabel("Errores: 2 de 6");
+        lblDetallesFin.setFont(new Font("SansSerif", Font.PLAIN, 16));
         lblDetallesFin.setForeground(TEXTO_GRIS);
         lblDetallesFin.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         lblPuntajeFin = new JLabel("260");
-        lblPuntajeFin.setFont(new Font("SansSerif", Font.BOLD, 36));
+        lblPuntajeFin.setFont(new Font("SansSerif", Font.BOLD, 46));
         lblPuntajeFin.setForeground(AMARILLO);
         lblPuntajeFin.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -330,17 +365,17 @@ public class MenuConsola extends JFrame {
         btnMenuPrincipal.addActionListener(e -> cardLayout.show(contenedorPrincipal, "MENU"));
 
         card.add(lblTituloFin);
-        card.add(Box.createRigidArea(new Dimension(0, 15)));
+        card.add(Box.createRigidArea(new Dimension(0, 20)));
         card.add(lblPalabraFin);
-        card.add(Box.createRigidArea(new Dimension(0, 15)));
+        card.add(Box.createRigidArea(new Dimension(0, 18)));
         card.add(lblDetallesFin);
-        card.add(Box.createRigidArea(new Dimension(0, 15)));
+        card.add(Box.createRigidArea(new Dimension(0, 18)));
         card.add(lblPuntajeFin);
-        card.add(Box.createRigidArea(new Dimension(0, 25)));
+        card.add(Box.createRigidArea(new Dimension(0, 35)));
         card.add(btnJugarDeNuevo);
-        card.add(Box.createRigidArea(new Dimension(0, 10)));
+        card.add(Box.createRigidArea(new Dimension(0, 14)));
         card.add(btnVerRanking);
-        card.add(Box.createRigidArea(new Dimension(0, 10)));
+        card.add(Box.createRigidArea(new Dimension(0, 14)));
         card.add(btnMenuPrincipal);
 
         wrapper.add(card);
@@ -351,24 +386,23 @@ public class MenuConsola extends JFrame {
     // 4. PANTALLA RANKING
     // =========================================================================
     private JPanel crearPantallaRanking() {
-        JPanel panel = new JPanel(new BorderLayout(0, 20));
+        JPanel panel = new JPanel(new BorderLayout(0, 25));
         panel.setBackground(BG_OSCURO);
-        panel.setBorder(new EmptyBorder(35, 55, 35, 55));
+        panel.setBorder(new EmptyBorder(60, 120, 60, 120));
 
-        // Header Ranking + Botón Volver
         JPanel topBar = new JPanel(new BorderLayout());
         topBar.setBackground(BG_OSCURO);
 
-        JPanel tituloYTABS = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 0));
+        JPanel tituloYTABS = new JPanel(new FlowLayout(FlowLayout.LEFT, 16, 0));
         tituloYTABS.setBackground(BG_OSCURO);
         JLabel lblRanking = new JLabel("Ranking   ");
-        lblRanking.setFont(new Font("SansSerif", Font.BOLD, 28));
+        lblRanking.setFont(new Font("SansSerif", Font.BOLD, 38));
         lblRanking.setForeground(AMARILLO);
 
         btnTabTop10 = crearBotonSolido("Top 10", AMARILLO, BG_OSCURO);
-        btnTabTop10.setPreferredSize(new Dimension(100, 32));
+        btnTabTop10.setPreferredSize(new Dimension(130, 42));
         btnTabHistorial = crearBotonBorde("Mi historial", AMARILLO);
-        btnTabHistorial.setPreferredSize(new Dimension(120, 32));
+        btnTabHistorial.setPreferredSize(new Dimension(150, 42));
 
         btnTabTop10.addActionListener(e -> cargarDatosRanking(false));
         btnTabHistorial.addActionListener(e -> {
@@ -384,14 +418,13 @@ public class MenuConsola extends JFrame {
         tituloYTABS.add(btnTabHistorial);
 
         JButton btnVolver = crearBotonBorde("Volver al menú", TEXTO_GRIS);
-        btnVolver.setPreferredSize(new Dimension(140, 36));
+        btnVolver.setPreferredSize(new Dimension(180, 44));
         btnVolver.addActionListener(e -> cardLayout.show(contenedorPrincipal, "MENU"));
 
         topBar.add(tituloYTABS, BorderLayout.WEST);
         topBar.add(btnVolver, BorderLayout.EAST);
         panel.add(topBar, BorderLayout.NORTH);
 
-        // Tabla estilizada
         String[] columnas = {"Pos.", "Jugador", "Puntaje", "Errores", "Fecha"};
         modeloTabla = new DefaultTableModel(columnas, 0) {
             @Override
@@ -401,13 +434,14 @@ public class MenuConsola extends JFrame {
         tablaRanking = new JTable(modeloTabla);
         tablaRanking.setBackground(CARD_AZUL);
         tablaRanking.setForeground(Color.WHITE);
-        tablaRanking.setRowHeight(38);
-        tablaRanking.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        tablaRanking.setRowHeight(48);
+        tablaRanking.setFont(new Font("SansSerif", Font.PLAIN, 17));
         tablaRanking.setShowGrid(false);
-        tablaRanking.setIntercellSpacing(new Dimension(0, 2));
+        tablaRanking.setIntercellSpacing(new Dimension(0, 3));
         tablaRanking.getTableHeader().setBackground(BG_OSCURO);
         tablaRanking.getTableHeader().setForeground(TEXTO_GRIS);
-        tablaRanking.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 13));
+        tablaRanking.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 16));
+        tablaRanking.getTableHeader().setPreferredSize(new Dimension(0, 45));
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -422,7 +456,7 @@ public class MenuConsola extends JFrame {
 
         JLabel lblNota = new JLabel("Orden: mayor puntaje; si hay empate, la fecha más antigua.");
         lblNota.setForeground(TEXTO_GRIS);
-        lblNota.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        lblNota.setFont(new Font("SansSerif", Font.PLAIN, 15));
         panel.add(lblNota, BorderLayout.SOUTH);
 
         return panel;
@@ -441,8 +475,7 @@ public class MenuConsola extends JFrame {
         jugadorActual = gestorJuego.registrarJugador(nombre);
         String catSeleccionada = (String) cmbCategoria.getSelectedItem();
 
-        PalabraDTO palabra = gestorJuego.seleccionarPalabra(
-                "Todas".equals(catSeleccionada) ? "General" : catSeleccionada, "Fácil");
+        PalabraDTO palabra = gestorJuego.seleccionarPalabra(catSeleccionada, "Fácil");
 
         if (palabra == null) {
             JOptionPane.showMessageDialog(this, "No hay palabras registradas en esa categoría.");
@@ -451,18 +484,21 @@ public class MenuConsola extends JFrame {
 
         juegoActual = new JuegoLogica(jugadorActual, palabra);
 
-        // Resetear vista del juego
         lblJugadorPartida.setText("<html>Jugador: <font color='#FFC13B'>" + jugadorActual.obtenerNombre() + "</font></html>");
         lblCategoriaPartida.setText("Categoría: " + palabra.obtenerCategoria());
+
+        int tamanoFuente = palabra.obtenerPalabra().length() > 15 ? 34 : 48;
+        lblPalabraOculta.setFont(new Font("Monospaced", Font.BOLD, tamanoFuente));
         lblPalabraOculta.setText(juegoActual.obtenerPalabraEnmascarada());
-        panelHorca.setErrores(0);
+
+        panelHorca.establecerErrores(0);
         actualizarIndicadoresErrores(0);
 
         for (JButton btn : botonesTeclado.values()) {
             btn.setEnabled(true);
             btn.setBackground(CARD_AZUL);
             btn.setForeground(Color.WHITE);
-            btn.setBorder(new LineBorder(new Color(50, 70, 110), 1));
+            btn.setBorder(new LineBorder(new Color(50, 70, 110), 2));
         }
 
         cardLayout.show(contenedorPrincipal, "JUEGO");
@@ -483,7 +519,7 @@ public class MenuConsola extends JFrame {
 
         lblPalabraOculta.setText(juegoActual.obtenerPalabraEnmascarada());
         int err = juegoActual.obtenerErrores();
-        panelHorca.setErrores(err);
+        panelHorca.establecerErrores(err);
         actualizarIndicadoresErrores(err);
 
         if (juegoActual.estaTerminada()) {
@@ -497,12 +533,13 @@ public class MenuConsola extends JFrame {
         lblTituloFin.setText(gano ? "¡Ganaste!" : "¡Perdiste!");
         lblTituloFin.setForeground(gano ? VERDE : ROJO);
 
-        // Espaciar letras de la palabra final
-        String palabraEspaciada = String.join(" ", juegoActual.getPalabraSecreta().obtenerPalabra().split(""));
+        String palabraEspaciada = String.join(" ", juegoActual.obtenerPalabraSecreta().obtenerPalabra().split(""));
+        int tamanoFin = palabraEspaciada.length() > 30 ? 20 : 30;
+        lblPalabraFin.setFont(new Font("Monospaced", Font.BOLD, tamanoFin));
         lblPalabraFin.setText(palabraEspaciada);
 
         lblDetallesFin.setText("Errores: " + resumen.obtenerErrores() + " de 6");
-        lblPuntajeFin.setText("<html><font size='3' color='#A0AEC0'>Puntaje </font>" + resumen.obtenerPuntaje() + "</html>");
+        lblPuntajeFin.setText("<html><font size='4' color='#A0AEC0'>Puntaje </font>" + resumen.obtenerPuntaje() + "</html>");
 
         cardLayout.show(contenedorPrincipal, "FIN");
     }
@@ -512,7 +549,7 @@ public class MenuConsola extends JFrame {
         panelIndicadoresErrores.removeAll();
         for (int i = 1; i <= 6; i++) {
             JLabel dot = new JLabel("●");
-            dot.setFont(new Font("SansSerif", Font.BOLD, 14));
+            dot.setFont(new Font("SansSerif", Font.BOLD, 18));
             dot.setForeground(i <= errores ? ROJO : new Color(70, 90, 130));
             panelIndicadoresErrores.add(dot);
         }
@@ -543,7 +580,7 @@ public class MenuConsola extends JFrame {
                         r.obtenerPosicion(),
                         r.obtenerNombreJugador(),
                         r.obtenerPuntaje(),
-                        "-",
+                        r.obtenerErrores(),
                         r.obtenerFecha().format(fmt)
                 });
             }
@@ -555,11 +592,11 @@ public class MenuConsola extends JFrame {
     // =========================================================================
     private JButton crearBotonSolido(String texto, Color bg, Color fg) {
         JButton btn = new JButton(texto);
-        btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 48));
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
         btn.setBackground(bg);
         btn.setForeground(fg);
-        btn.setFont(new Font("SansSerif", Font.BOLD, 14));
+        btn.setFont(new Font("SansSerif", Font.BOLD, 16));
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -568,21 +605,21 @@ public class MenuConsola extends JFrame {
 
     private JButton crearBotonBorde(String texto, Color bordeColor) {
         JButton btn = new JButton(texto);
-        btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 48));
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
         btn.setBackground(CARD_AZUL);
         btn.setForeground(Color.WHITE);
-        btn.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        btn.setFont(new Font("SansSerif", Font.PLAIN, 15));
         btn.setFocusPainted(false);
         btn.setBorder(new LineBorder(bordeColor, 1));
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         return btn;
     }
+
     private void cargarPalabrasIniciales() {
         List<PalabraDTO> existentes = gestorJuego.getPalabraDAO().listar();
 
-        // Si hay menos de 10 palabras, cargamos el catálogo completo
-        if (existentes.size() < 10) {
+        if (existentes.size() < 11) {
             String[][] catalogo = {
                     {"PROGRAMA", "Programación", "Fácil"},
                     {"JAVA", "Programación", "Fácil"},
@@ -607,7 +644,7 @@ public class MenuConsola extends JFrame {
         }
     }
 
-    // Lienzo personalizado que dibuja la horca exactamente como tus mockups
+    // Lienzo personalizado que dibuja la horca escalada a 1080p
     private static class PanelHorca extends JPanel {
         private int errores = 0;
         private boolean modoLogo = false;
@@ -616,12 +653,12 @@ public class MenuConsola extends JFrame {
             setOpaque(false);
         }
 
-        public void setErrores(int errores) {
+        public void establecerErrores(int errores) {
             this.errores = errores;
             repaint();
         }
 
-        public void setModoLogo(boolean modoLogo) {
+        public void establecerModoLogo(boolean modoLogo) {
             this.modoLogo = modoLogo;
             repaint();
         }
@@ -631,34 +668,34 @@ public class MenuConsola extends JFrame {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setStroke(new BasicStroke(4f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            g2.setStroke(new BasicStroke(6f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 
             int w = getWidth();
             int h = getHeight();
-            int baseX = w / 2 - 45;
-            int baseY = h - 30;
+            int baseX = (w / 2) - 70;
+            int baseY = (h / 2) + 140;
 
             // Estructura de la horca (Blanca)
             g2.setColor(Color.WHITE);
-            g2.drawLine(baseX - 25, baseY, baseX + 55, baseY);           // Base
-            g2.drawLine(baseX, baseY, baseX, baseY - 170);               // Poste vertical
-            g2.drawLine(baseX, baseY - 170, baseX + 75, baseY - 170);    // Travesaño
-            g2.drawLine(baseX + 75, baseY - 170, baseX + 75, baseY - 145); // Cuerda
+            g2.drawLine(baseX - 40, baseY, baseX + 90, baseY);               // Base
+            g2.drawLine(baseX, baseY, baseX, baseY - 280);                   // Poste vertical
+            g2.drawLine(baseX, baseY - 280, baseX + 125, baseY - 280);       // Travesaño
+            g2.drawLine(baseX + 125, baseY - 280, baseX + 125, baseY - 240); // Cuerda
 
             if (modoLogo) {
                 g2.setColor(AMARILLO);
-                g2.drawOval(baseX + 60, baseY - 145, 30, 30);
+                g2.drawOval(baseX + 100, baseY - 240, 50, 50);
                 return;
             }
 
             // Muñeco (Rojo coral según el número de errores 1..6)
             g2.setColor(ROJO);
-            if (errores >= 1) g2.drawOval(baseX + 60, baseY - 145, 30, 30);          // Cabeza
-            if (errores >= 2) g2.drawLine(baseX + 75, baseY - 115, baseX + 75, baseY - 65); // Torso
-            if (errores >= 3) g2.drawLine(baseX + 75, baseY - 105, baseX + 52, baseY - 82); // Brazo izq
-            if (errores >= 4) g2.drawLine(baseX + 75, baseY - 105, baseX + 98, baseY - 82); // Brazo der
-            if (errores >= 5) g2.drawLine(baseX + 75, baseY - 65, baseX + 55, baseY - 35);  // Pierna izq
-            if (errores >= 6) g2.drawLine(baseX + 75, baseY - 65, baseX + 95, baseY - 35);  // Pierna der
+            if (errores >= 1) g2.drawOval(baseX + 100, baseY - 240, 50, 50);                 // Cabeza
+            if (errores >= 2) g2.drawLine(baseX + 125, baseY - 190, baseX + 125, baseY - 105); // Torso
+            if (errores >= 3) g2.drawLine(baseX + 125, baseY - 175, baseX + 85, baseY - 135);  // Brazo izq
+            if (errores >= 4) g2.drawLine(baseX + 125, baseY - 175, baseX + 165, baseY - 135); // Brazo der
+            if (errores >= 5) g2.drawLine(baseX + 125, baseY - 105, baseX + 90, baseY - 55);   // Pierna izq
+            if (errores >= 6) g2.drawLine(baseX + 125, baseY - 105, baseX + 160, baseY - 55);  // Pierna der
         }
     }
 

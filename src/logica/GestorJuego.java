@@ -35,8 +35,8 @@ public class GestorJuego {
         int puntaje = juego.calcularPuntaje();
 
         PartidaDTO partida = new PartidaDTO(
-                juego.getJugadorActual().obtenerId(),
-                juego.getPalabraSecreta().obtenerPalabra(),
+                juego.obtenerJugadorActual().obtenerId(),
+                juego.obtenerPalabraSecreta().obtenerPalabra(),
                 juego.obtenerErrores(),
                 resultado,
                 puntaje
